@@ -1,0 +1,159 @@
+#+TITLE: js简写技巧
+
+* js 简写技巧
+
+** 声明变量
+    
+    #+begin_src js
+      //bad
+      let x;
+      let y = 100;
+
+      //good
+      let x, y = 100;
+    #+end_src
+    
+** 给多个变量赋值
+    使用数组解构来进行赋值。
+    #+begin_src js
+      //bad
+      const a = 1;
+      const b = 2;
+      const c = 3;
+
+      //good
+      const [a,b,c] = [1,2,3];
+    #+end_src
+
+** 三元运算符
+
+    #+begin_src js
+      //bad
+      let a = 1;
+      let b;
+      if(a>0){
+          b = a;
+      }else{
+          b = -1;
+      }
+
+      //good
+      let b = a > 0 ? a : -1;
+    #+end_src
+
+** 赋默认值
+    可以使用 OR(||) 短路运算来给一个变量赋默认值，如果预期值不正确的情况下。
+    #+begin_src js
+      //bad
+      Let imagePath;
+      let path = getImagePath();
+      if(path !== null && path !== undefined && path !== ''){
+          imagePath = path;
+      } else {
+          imagePath = 'dafault.jpg'
+      }
+
+      //good
+      let imagePath = getImagePath() || 'default.jpg'
+    #+end_src
+
+** &&运算
+    如果只有当某个变量为 true 时调用一个函数，那么可以使用与 (&&)短路形式书写。
+    #+begin_src js
+      //bad
+      if(isLogin){
+          goHome();
+      }
+
+      //good
+      isLogin && goHome();
+    #+end_src
+    当在 React 中想要有条件地渲染某个组件时，这个与 (&&)短路写法比较有用。例如：
+    #+begin_src js
+          <div> {isLogin && <Home />} </div>
+    #+end_src
+
+** 交换变量
+    使用数组解构赋值来交换两个变量。
+    #+begin_src js
+      //bad
+      let x = 1;
+      let y = 2;
+      let z = x;
+      x = y;
+      y = z;
+
+      //good
+      let x = 1, y = 2;
+      [x,y] = [y,x]
+    #+end_src
+
+** 多条件检查
+   对于多个值匹配，可以将所有的值放到数组中，然后使用 indexOf()或 includes()方法。
+   #+begin_src js
+     //bad
+     if (value === 1 || value === 'one' || value === 2 || value === 'two') {
+         // Execute some code
+     }
+
+     //good
+     if ([1, 'one', 2, 'two'].indexOf(value) >= 0) {
+         // Execute some code
+     }
+     if ([1, 'one', 2, 'two'].includes(value)) {
+         // Execute some code
+     }
+   #+end_src
+
+** 对象属性复制
+   如果变量名和对象的属性名相同，那么我们只需要在对象语句中声明变量名，而不是同时声明键和值。JavaScript 会自动将键作为变量的名，将值作为变量的值。
+   #+begin_src js
+     const firstName = 'zing';
+     const lastName = 'wu';
+
+     //bad
+     const obj = {
+         firstName: firstName;
+         lastName: lastName;
+     }
+     //good
+     const obj = {
+         firstName;
+         lastName;
+     }
+   #+end_src
+
+** 字符串转数字
+   #+begin_src js
+     //bad
+     let total = parseInt('123');
+
+     //good
+     let total = +'123';
+   #+end_src
+ 
+** 指数幂
+   #+begin_src js
+     //bad
+     const power = Math.pow(4,3);
+
+     //good
+     const power = 4**3
+   #+end_src
+
+** 双非位运算符
+   #+begin_src js
+     //bad
+     const floor = math.floor(6.8) // 6
+
+     //good
+     const floor = ~~6.8 // 6
+   #+end_src
+
+** 找出数组中的最大数字和最小数字
+   #+begin_src js
+     //good
+     const arr = [1,2,11,3]
+     const max = Math.max(...arr);
+     const min = Math.min(...arr);
+   #+end_src
