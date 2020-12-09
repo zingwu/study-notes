@@ -1,8 +1,9 @@
-#+TITLE: git常用命令
+#+TITLE:      git常用命令
 
-* git 常用命令
+* 目录                                                    :TOC_4_gh:noexport:
+- [[#分支相关][分支相关]]
 
-** 分支相关
+* 分支相关
    + 删除远程不存在，本地存在的远程分支 git remote prune origin
    + 列出所有本地分支 git branch
    + 列出所有远程分支 git branch -r
