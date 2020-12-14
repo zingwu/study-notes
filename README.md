@@ -1,6 +1,9 @@
 ## Table of contents
+  + [algorithm](#algorithm)
   + [javascript](#javascript)
   + [utils](#utils)
+## algorithm
+  + [复杂度分析](notes/algorithm/algorithm-complexity.org)
 ## javascript
   + [js 简写技巧](notes/javascript/js-shorthand.org)
 ## utils
