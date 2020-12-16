@@ -10,6 +10,7 @@
 - [[#表格][表格]]
 - [[#链接][链接]]
   - [[#链接格式][链接格式]]
+  - [[#外部链接][外部链接]]
 - [[#待办事项todo][待办事项(TODO)]]
 - [[#标签tags][标签(tags)]]
   - [[#章标题][章标题]]
@@ -114,9 +115,13 @@ Org 是在大纲模式之上实现的。大纲模式可以让我们用层次结�
 链接用于链接一些资源地址，如图片、文件、URL 等。
 ** 链接格式
 #+begin_src org
-[[link][description]]
-[[link]]
-#+end_example
+  [[link][description]]
+  [[link]]
+#+end_src
+在org 中，链接输入一旦完成，org就会改变它的视图，例如： [[www.google.com][谷歌]] 。要想编辑链接，可以光标置于链接上并键入 C-c C-l。
+** 外部链接
+https://www.baidu.com
+file:/home
 
 * 待办事项(TODO)
 TODO 是 org-mode 最具特色的一个功能，也是 org-mode 设计的初衷，org-mode 的作者本意是用其来完成一个个人时间管理程序（GDT）。因此，可以用 org-mode 来做一个个人时间管理工具下面我们来看怎么写 TODO。TODO 也是一类标题，因此也需要用*开头，在 Emacs 中输入：
@@ -141,7 +146,7 @@ TODO 是 org-mode 最具特色的一个功能，也是 org-mode 设计的初衷�
 
 * 标签(tags)
 在 org-mode 中，可以给每一章节添加一个标签，我们可以通过树的结构来查看所有带标签的章节。在每一节中，子标题的标签会继承父标题标签。 输入：
-** 章标题                                                        :work:learn:
+** 章标题                                        :work:learn:
 
 
 * 时间
@@ -163,7 +168,6 @@ __underline__
 ==code==
 ~~verbatim~~
 ++string-through++
-
 ** 数学符号
 org 支持输入指数等数学符号，例如： n^2, 如果想看到展示效果，可以在当前 buffer 临时开启 org-toggle-pretty-entities，开启快捷键为 C-c C-x \
 
