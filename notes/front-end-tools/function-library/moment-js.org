@@ -13,4 +13,5 @@
 * 操作
 ** subtract()
    通过减去时间来改变原始的 moment。 moment().subtract(number,string)
-   例如：获取昨天：moment().substract(1,'days')
+
+例如：获取昨天：moment().substract(1,'days')
