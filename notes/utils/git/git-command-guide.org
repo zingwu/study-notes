@@ -2,17 +2,25 @@
 
 * 目录                                                    :TOC_4_gh:noexport:
 - [[#分支相关][分支相关]]
+- [[#撤销操作][撤销操作]]
+- [[#git配置][git配置]]
 
 * 分支相关
-   + 删除远程不存在，本地存在的远程分支 git remote prune origin
-   + 列出所有本地分支 git branch
-   + 列出所有远程分支 git branch -r
-   + 列出所有本地分支和远程分支 git branch -a
-   + 新建一个分支，但依然停留在当前分支 git branch [branch-name]
-   + 新建一个分支，并切换到该分支 git checkout -b [branch-name]
-   + 将本地分支与远程分支关联 git branch --set-upstream-to=origin/[远程分支] [本地分支]
-   + 本地分支推送到对应的远程分支 git push origin xx/xx:xx/xx
-   + 切换分支 git checkout [branch-name]
-   + 删除分支 git branch -D [branch-name]
-   + 本地分支重命名 git branch -m [old-name] [new-name]
-  
++ 删除远程不存在，本地存在的远程分支 git remote prune origin
++ 列出所有本地分支 git branch
++ 列出所有远程分支 git branch -r
++ 列出所有本地分支和远程分支 git branch -a
++ 新建一个分支，但依然停留在当前分支 git branch [branch-name]
++ 新建一个分支，并切换到该分支 git checkout -b [branch-name]
++ 将本地分支与远程分支关联 git branch --set-upstream-to=origin/[远程分支] [本地分支]
++ 本地分支推送到对应的远程分支 git push origin xx/xx:xx/xx
++ 切换分支 git checkout [branch-name]
++ 删除分支 git branch -D [branch-name]
++ 本地分支重命名 git branch -m [old-name] [new-name]
+
+* 撤销操作
++ 撤销最新一次提交 git reset --soft HEAD^
+
+* git配置
++ 配置特定仓库用户名 git config user.name '用户名'
++ 配置特定仓库邮箱 git config user.email '邮箱'
