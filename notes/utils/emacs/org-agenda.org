@@ -1,0 +1,55 @@
+#+TITLE:      org-agenda 配置
+
+* 目录                                                    :TOC_4_gh:noexport:
+- [[#文件目录][文件目录]]
+- [[#agenda相关][agenda相关]]
+  - [[#agenda-视图操作][agenda 视图操作]]
+  - [[#文件快捷键][文件快捷键]]
+  - [[#日期设置快捷键][日期设置快捷键]]
+  - [[#状态更新][状态更新]]
+  - [[#agenda-buffer操作][agenda buffer操作]]
+
+* 文件目录
+
+* agenda相关
+** agenda 视图操作
++ t 输入关键字（例如：TODO），列出所有TODO
++ 
+** 文件快捷键
++ 把当前文件通过agenda 管理  C-c [
++ 当前文件退出agenda 管理  C-c ]
++ 记录任务开始时间  C-c C-x C-i
++ 记录任务结束时间  C-c C-x C-o
+** 日期设置快捷键
++ 设置任务开始时间 C-c C-s
++ 设置任务截止时间 C-c C-d
+** 状态更新
++ 任务状态变更 C-c C-t
+** agenda buffer操作
++ daily视图 d
++ weekly 视图 w
++ 上下移动光标 p/n
++ 上下按日程移动光标 P/N
++ 在新的缓冲区展示任务在org文件中定义的位置 SPC
++ 在新的缓冲区展示任务在org文件中定义的位置，光标并跳转到对应位置 Tab
++ 在当前buffer中打开文件并跳转 RET
++ 打开跟踪模式，即移动光标时，另一buffer展示当前任务的定义处 L
++ 关闭其他buffer o
++ 上一周/下一周 b/f
++ 跳转到当前天 .
++ 选择日期并跳转 j
++ 包含日记 D
++ 刷新agenda buffer r
++ 通过tag 过滤 /
++ 通过类型过滤 <
++ 通过top headine 过滤 ^
++ 去除所有过滤 |
++ 改变状态 t
++ 设置优先级 ,
++ 添加note z
++ mark 当前日程 m
++ mark 所有日程 *
++ 取消mark当前日程 u
++ 取消mark所有日程 U
++ 退出 q
++ 退出，包括所有相关的buffer x

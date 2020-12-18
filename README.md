@@ -4,7 +4,6 @@
   + [javascript](#javascript)
   + [utils](#utils)
 ## algorithm
-
   + [复杂度分析](notes/algorithm/algorithm-complexity.org)
 ## front-end-tools
   + **components-library**
@@ -15,6 +14,7 @@
   + [js 简写技巧](notes/javascript/js-shorthand.org)
 ## utils
   + **emacs**
+    + [org-agenda 配置](notes/utils/emacs/org-agenda.org)
     + [org-mode学习](notes/utils/emacs/org-mode.org)
     + [emacs常用快捷键指南](notes/utils/emacs/shortcut-guide.org)
   + **git**
