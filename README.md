@@ -12,7 +12,7 @@
   + **function-library**
     + [moment-js 常用方法](notes/front-end-tools/function-library/moment-js.org)
 ## javascript
-  + [js 简写技巧](notes/javascript/js-shorthand.org)
+  + [js 代码提升](notes/javascript/js-code-clean.org)
 ## utils
   + **emacs**
     + [org-agenda 配置](notes/utils/emacs/org-agenda.org)
