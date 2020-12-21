@@ -183,6 +183,13 @@ My age is 24.
 #+END_VERSE
 #+END_QUOTE
 
+
+#+BEGIN_VERSE
+My name is zingwu.
+My age is 24.
+#+END_VERSE
+
+
 * 富文本导出
 org-mode 的强大之处还在于它能到出成各种不同的格式，例如 html、pdf 等，在导出时，可以加入一些说明符号，来制定导出选项，常用导出符号如下：
 
