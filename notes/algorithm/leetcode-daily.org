@@ -1,0 +1,83 @@
+#+TITLE:      leetcode 每日1题
+
+* 目录                                                    :TOC_4_gh:noexport:
+- [[#12-21使用最小花费爬楼梯---------arraydynamic-programming][12-21：使用最小花费爬楼梯         :array:dynamic-programming:]]
+  - [[#题目描述][题目描述]]
+  - [[#示例][示例]]
+    - [[#示例1][示例1]]
+    - [[#示例2][示例2]]
+  - [[#注意][注意]]
+  - [[#解法][解法]]
+    - [[#解法一动态规划][解法一：动态规划]]
+      - [[#思路][思路]]
+      - [[#代码][代码]]
+      - [[#复杂度分析][复杂度分析]]
+    - [[#解法二-优化解法一][解法二： 优化解法一]]
+      - [[#思路-1][思路]]
+      - [[#代码-1][代码]]
+
+* 12-21：使用最小花费爬楼梯         :array:dynamic-programming:
+** 题目描述
+数组的每个索引作为一个阶梯，第i个阶梯对应着一个非负数的体力花费值cost[i](索引从0开始)。每当你爬上一个阶梯你都要花费对应的体力花费值，然后你可以选择继续爬一个阶梯或者爬两个阶梯。您需要找到达到楼层顶部的最低花费。在开始时，你可以选择从索引为 0 或 1 的元素作为初始阶梯。
+** 示例
+*** 示例1
+输入: cost = [10, 15, 20]
+输出: 15
+解释: 最低花费是从cost[1]开始，然后走两步即可到阶梯顶，一共花费15。
+*** 示例2
+输入: cost = [1, 100, 1, 1, 1, 100, 1, 1, 100, 1]
+输出: 6
+解释: 最低花费方式是从cost[0]开始，逐个经过那些1，跳过cost[3]，一共花费6。
+** 注意
+1.cost 的长度将会在 [2, 1000]。
+2.每一个 cost[i] 将会是一个Integer类型，范围为 [0, 999]。
+** 解法
+*** 解法一：动态规划
+**** 思路
+假设数组的cost的长度为n，则n个阶梯对应的是下标0到n-1，楼层顶部对应下标n，问题等价于计算到达下标n的最小花费，可以通过动态规划的方式求解。
+1.创建长度为n+1 的数组dp，其中dp[i] 表示到达下标i的最小花费。
+2.根据题意，在开始时可以选择从索引为0或1的元素作为初始阶梯，因此有dp[0] = dp[1] = 0。
+3.当2<= i <= n时，可以从下标i-1 使用 cost[i-1] 的花费达到下标[i]，也可以从下标 i-2 使用 cost[i-2] 的花费达到下标 i。为了使总花费最小，dp[i] 应取上述两项的最小值，因此状态转移方程如下：
+dp[i] = min(dp[i-1]+cost[i-1],dp[i-2]+cost[i-2])
+依次计算dp中每一项的值，最终得到的dp[n] 即为达到楼层顶部的最小花费。
+**** 代码
+#+begin_src js
+  const cost = [10,15,20];
+  const minCostClimbingStairs = (cost) => {
+      const n = cost.length;
+      const dp = new Array(n + 1);
+      dp[0] = dp[1] = 0;
+      for (let i = 2; i <= n; i++) {
+          dp[i] = Math.min(dp[i - 1] + cost[i - 1], dp[i - 2] + cost[i - 2]);
+      }
+      return dp[n];
+  };
+  return minCostClimbingStairs(cost);
+#+end_src
+
+#+RESULTS:
+: 15
+**** 复杂度分析
+时间复杂度为O(n)，空间复杂度为O(n)。
+*** 解法二： 优化解法一
+**** 思路
+注意到当 i>=2 时，dp[i] 只和 dp[i−1] 与 dp[i−2] 有关，因此可以使用滚动数组的思想，将空间复杂度优化到 O(1)。
+**** 代码
+#+begin_src js
+  const cost = [10, 15, 20, 10, 20, 30, 1];
+  const minCostClimbingStairs = (Cost) => {
+      const n = cost.length;
+      let prev = 0;
+      let curr = 0;
+      for (let i = 2; i <= n; i++) {
+          let next = Math.min(curr + cost[i - 1], prev + cost[i - 2]);
+          prev = curr;
+          curr = next;
+      }
+      return curr;
+  };
+  return minCostClimbingStairs(cost);
+#+end_src
+
+#+RESULTS:
+: 46

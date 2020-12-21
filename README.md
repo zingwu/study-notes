@@ -5,6 +5,7 @@
   + [utils](#utils)
 ## algorithm
   + [复杂度分析](notes/algorithm/algorithm-complexity.org)
+  + [leetcode 每日1题](notes/algorithm/leetcode-daily.org)
 ## front-end-tools
   + **components-library**
     + [antd](notes/front-end-tools/components-library/antd.org)
