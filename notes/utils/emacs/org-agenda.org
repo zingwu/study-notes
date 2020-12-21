@@ -14,7 +14,6 @@
 * agenda相关
 ** agenda 视图操作
 + t 输入关键字（例如：TODO），列出所有TODO
-+ 
 ** 文件快捷键
 + 把当前文件通过agenda 管理  C-c [
 + 当前文件退出agenda 管理  C-c ]

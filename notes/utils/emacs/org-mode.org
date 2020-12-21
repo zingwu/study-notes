@@ -18,8 +18,7 @@
 - [[#特殊文本格式][特殊文本格式]]
   - [[#数学符号][数学符号]]
   - [[#内容元数据][内容元数据]]
-    - [[#分行区块][分行区块]]
-    - [[#fff][fff]]
+    - [[#缩进区块][缩进区块]]
 - [[#富文本导出][富文本导出]]
 - [[#注释][注释]]
 - [[#footnotes][Footnotes]]
@@ -88,8 +87,6 @@ Org 是在大纲模式之上实现的。大纲模式可以让我们用层次结�
    #+end_src
    然后C-c RET 就可以生成一张表格了。如果需要header，可以C-c - 添加。
 3. 通过C-c | 这个快捷键来快速创建一个指定大小的表格。
-
-
 下面体验下 org-mode 的强大的表格函数。我们在 total 列任选一个位置，输入=$1+$2 ，然后按 C-u C-c C-c，org-mode 能自动为我们计算所有的和，并放到第三列。最后完成的表格如下：
 
 | num1 | num2 | total |
@@ -154,41 +151,46 @@ TODO 是 org-mode 最具特色的一个功能，也是 org-mode 设计的初衷�
 
 * 时间
 org-mode 可以利用 Emacs 的时间空间插入当前时间。 输入 C-c . 会出现一个日历，我们点选相应的时间即可插入。
+
 <2020-11-23 一>
+
 时间前可以加 DEADLINE:和 SCHEDULED:表示时间的类型如：
+
 DEADLINE:<2020-12-01 二>
+
 下面是一个常见的 TODO 模板：
+
 TODO 学习 org
+
 SCHEDULED: <2020-11-20 五>
+
 DEADLINE: <2020-11-27 五>
+
 常见命令如下：
-C-c . 插入时间
++ C-c . 插入时间
 
 * 特殊文本格式
 **bold**
+
 //italic//
+
 __underline__
+
 ==code==
+
 ~~verbatim~~
+
 ++string-through++
 ** 数学符号
 org 支持输入指数等数学符号，例如： n^2, 如果想看到展示效果，可以在当前 buffer 临时开启 org-toggle-pretty-entities，开启快捷键为 C-c C-x \
 ** 内容元数据
 通常在行首用#+开头，可以有多种用途：
-*** 分行区块
-默认内容不换行，需要留出空行才能换行，定义了分行的区块可以实现普通分行：
+*** 缩进区块
+通常用于引用，与默认格式相比左右都会留出缩进：
 #+BEGIN_QUOTE
-#+BEGIN_VERSE
 My name is zingwu.
 My age is 24.
-#+END_VERSE
 #+END_QUOTE
-
-*** fff
-#+BEGIN_VERSE
-My name is zingwu.
-My age is 24.
-#+END_VERSE
 
 
 * 富文本导出
