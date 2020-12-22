@@ -2,6 +2,7 @@
   + [algorithm](#algorithm)
   + [front-end-tools](#front-end-tools)
   + [javascript](#javascript)
+  + [react](#react)
   + [utils](#utils)
 ## algorithm
   + [复杂度分析](notes/algorithm/algorithm-complexity.org)
@@ -13,6 +14,8 @@
     + [moment-js 常用方法](notes/front-end-tools/function-library/moment-js.org)
 ## javascript
   + [js 代码提升](notes/javascript/js-code-clean.org)
+## react
+  + [React 函数式组件性能优化](notes/react/react-function-performance-optimization.org)
 ## utils
   + **emacs**
     + [org-agenda 配置](notes/utils/emacs/org-agenda.org)

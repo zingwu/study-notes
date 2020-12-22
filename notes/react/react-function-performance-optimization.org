@@ -1,0 +1,257 @@
+#+TITLE:      React 函数式组件性能优化
+
+* 目录                                                    :TOC_4_gh:noexport:
+- [[#react-性能优化思路][React 性能优化思路]]
+- [[#reactmemo][React.memo]]
+  - [[#实例][实例]]
+  - [[#reactmemo的基础用法][React.memo的基础用法]]
+  - [[#reactmemo的高级用法][React.memo的高级用法]]
+- [[#usecallback][useCallback]]
+  - [[#实例-1][实例]]
+  - [[#找原因][找原因]]
+  - [[#usecallback使用方法][useCallback使用方法]]
+- [[#usememo][useMemo]]
+  - [[#实例-2][实例]]
+  - [[#可能会出现的性能问题][可能会出现的性能问题]]
+  - [[#uesmemo-使用方法][uesMemo 使用方法]]
+  - [[#小结][小结]]
+
+* React 性能优化思路
+react性能优化的理念主要为以下两点：
+1. 减少重新render的次数，因为在 React 里花时间最长的一块就是 reconction(简单的可以理解为 diff)，如果不 render，就不会 reconction。
+2. 减少计算的量，当然这里计算的量主要指的是重复计算的部分，对于函数式组件，每次render都会从头执行函数调用。
+* React.memo
+这个 API 可以说是对标类组件里面的 PureComponent，这是可以减少重新 render 的次数的。
+** 实例
+举个例子，代码如下，实现的东西大概就是：上面一个 title，中间一个 button(点击 button 修改 title)，下面一个子组件，传递一个 name 进去。
+#+begin_src js
+  //App.jsx
+  import React,{useState} from "react";
+  import Child from "./child"
+
+  export default function App() {
+      const [title,setTitle] = useState("这是一个标题")
+      return (
+          <div className="App">
+              <h1>{title}</h1>
+              <button onClick={()=>setTitle("标题已经更改")}>改名字</button>
+              <Child name="howell" />
+          </div>
+      );
+  }
+  //Child.jsx
+  import React from "react"
+
+  const Child = (props) => {
+      console.log(props.name)
+      return <h1>{props.name}</h1>
+  })
+
+  export default Child
+#+end_src
+这里代码中，会出现当页面初次渲染时，howell会被打印出来，但是当点击按钮后，howell会再被打印一次，这里我们理想状态肯定是想要父组件重新渲染时子组件不变。为什么会有这种想法呢？因为假如Child 组件是一个非常大的组件，渲染一次会消耗很多性能，那么从性能优化的角度考虑，我们就应该减少这个组件的渲染次数。所以这里可以总结出一条性能优化定理。
+#+begin_center
+如果在子组件的props没有变化的情况下，假设父组件需要重新渲染，那么子组件应当不重新渲染。
+#+end_center
+这里的实现方式比较简单，用 React.memo 在给定相同 props 的情况下渲染相同的结果，并且通过记忆组件渲染结果的方式来提高组件的性能表现。
+** React.memo的基础用法
+把声明的组件通过React.memo包一层就好了，React.memo其实是一个高阶函数，传递一个组件进去，返回一个可以记忆的组件。
+#+begin_src js
+  function Component(props) {
+      /* 使用 props 渲染 */
+  }
+  const MyComponent = React.memo(Component);
+#+end_src
+所以这里上面的Child组件可以改为：
+#+begin_src js
+  import React from "react"
+
+  const Child = (props) => {
+      console.log(props.name)
+      return <h1>{props.name}</h1>
+  })
+
+  export default React.memo(Child)
+#+end_src
+React.memo 仅检查props变化引起的重新渲染，如果函数组件被React.memo包裹，但是内部实现又使用了useState或者useContext的hook，当state或者context 发生变化时，它仍会重新渲染。
+** React.memo的高级用法
+默认情况下只会对复杂对象做浅层比较，如果想要控制比较过程，可以自定义一个比较函数，做为memo的第二个参数传入。例如上面的child组件接受的是一个person对象，那么单单用memo包裹，父组件重新渲染时child也会重复渲染，这里就需要我们自己实现一个比较函数，代码如下：
+#+begin_src js
+  import React from "react"
+
+  const Child = (props) => {
+      console.log(props.person)
+      return <h1>{props.person.name}</h1>
+  }
+
+  const areEqual = (prevProps,nextProps) => {
+      if(prevProps.person.name === nextProps.person.name){
+          return true
+      } else {
+          return false
+      }
+  }
+
+  export default React.memo(Child,areEqual)
+#+end_src
+同时应当注意的是，此方法只可用来作为性能优化，不要使用它来阻止渲染，会产生bug。
+
+* useCallback
+** 实例
+现在根据上面的例子，再改一下需求，在上面的需求上增加一个副标题，并且有一个修改副标题的 button，然后把修改标题的 button 放到 Child 组件里。代码如下：
+#+begin_src js
+  //App.jsx
+  import React,{useState} from "react";
+  import Child from "./child"
+
+  export default function App() {
+      const [title,setTitle] = useState("这是一个标题")
+      const [subtitle,setSubtitle] = useState("这是一个副标题")
+      const callback = () => {
+          console.log("标题改变了")
+      }
+      return (
+          <div className="App">
+              <h1>{title}</h1>
+              <h2>{subtitle}</h2>
+              <button onClick={()=>setSubtitle("副标题已经更改")}>改副标题</button>
+              <Child name="howell" onClick={callback} />
+          </div>
+      );
+  }
+  //Child.jsx
+  import React from "react"
+
+  const Child = (props) => {
+      console.log(props.name)
+      return (
+          <>
+              <button onClick={props.onClick}>改标题</button>
+              <h1>改标题</h1>
+          </>
+      )
+  }
+
+  export default React.memo(Child)
+#+end_src
+这段代码在首次渲染的时候控制台会打印howell，然后点击该副标题的按钮，会发现控制台再次打印了howell，这就证明了Child组件再一次渲染了，但是此时Child组件没有任何变化，那么这一次子组件的重新渲染就是多余的。
+** 找原因
+在解决问题之前，我们首先应该考虑问题产生的原因是什么？
+
+一个组件重新渲染，一般有以下几种情况：
+1. 组件自己的状态发生改变。
+2. 父组件重新渲染，导致子组件重新渲染，但是父组件传递的props没有改变。
+3. 父组件重新渲染，导致子组件重新渲染，父组件传递的props发生了改变。
+在这里可以排除第一种和第二种，那么可以肯定的说，这里子组件的重新渲染是因为props发生了改变，再看看这里的props，一个是name，一个是onClick，name是传递的常量，没有发生改变。那么改变的就是这里的onClick了，那么为什么onClick会发生改变呢？是因为函数式组件重新渲染时，函数组件会重头开始执行，那么这两次创建的callback函数肯定地址会发生变化，所以导致了子组件重新渲染。
+** useCallback使用方法
+找到了问题的原因，那么根据原因，解决方法就是在函数没有发生改变的时候，重新渲染的时候应当保持两个函数的引用一致。这里就需要用到useCallback 这个hook了。官网给的示例代码如下：
+#+begin_src js
+  const callback = () => {
+      doSomething(a, b);
+  }
+
+  const memoizedCallback = useCallback(callback, [a, b])
+#+end_src
+把函数以及依赖项作为参数传入 useCallback，它将返回该回调函数的 memoized 版本，这个 memoizedCallback 只有在依赖项有变化的时候才会更新。那么可以将上面的示例代码修改一下：
+#+begin_src js
+  import React,{useState,useCallback} from "react";
+  import Child from "./child"
+
+  export default function App() {
+      const [title,setTitle] = useState("这是一个标题")
+      const [subtitle,setSubtitle] = useState("这是一个副标题")
+      const callback = () => {
+          setTitle("标题改变了")
+      }
+      const memoryCallback = useCallback(callback,[])
+      return (
+          <div className="App">
+              <h1>{title}</h1>
+              <h2>{subtitle}</h2>
+              <button onClick={()=>setSubtitle("副标题已经更改")}>改副标题</button>
+              <Child name="howell" onClick={memoryCallback} />
+          </div>
+      );
+  }
+#+end_src
+如果我们的 callback 传递了参数，当参数变化的时候需要让它重新添加一个缓存，可以将参数放在 useCallback 第二个参数的数组中，作为依赖的形式，使用方式跟 useEffect 类似。
+
+* useMemo
+在开头就介绍了，React 的性能优化方向主要是两个：一个是减少重新 render 的次数(或者说减少不必要的渲染)，另一个是减少计算的量。前面介绍的 React.memo 和 useCallback 都是为了减少重新 render 的次数。对于如何减少计算的量，就是 useMemo 来做的，接下来我们看例子。
+** 实例
+#+begin_src js
+import React,{useState} from "react";
+
+export default function App() {
+  const [num, setNum] = useState(0);
+
+  // 一个非常耗时的一个计算函数
+  // result 最后返回的值是 49995000
+  function expensiveFn() {
+    let result = 0;
+
+    for (let i = 0; i < 10000; i++) {
+      result += i;
+    }
+
+    console.log(result) // 49995000
+    return result;
+  }
+
+  const base = expensiveFn();
+
+  return (
+    <div className="App">
+      <h1>count：{num}</h1>
+      <button onClick={() => setNum(num + base)}>+1</button>
+    </div>
+  );
+}
+#+end_src
+这个例子功能很简单，就是点击+1按钮，然后会将现在的值（num）与与计算函数expensiveFn 调用后的值相加。
+** 可能会出现的性能问题
+就算是一个看起来很简单的组件，也有可能产生性能问题，通过这个最简单的例子来看看还有什么值得优化的地方。
+
+首先我们把 expensiveFn 函数当做一个计算量很大的函数(比如你可以把 i 换成 10000000)，然后当我们每次点击 +1 按钮的时候，都会重新渲染组件，而且都会调用 expensiveFn 函数并输出 49995000。由于每次调用 expensiveFn 所返回的值都一样，所以我们可以想办法将计算出来的值缓存起来，每次调用函数直接返回缓存的值，这样就可以做一些性能优化。
+** uesMemo 使用方法
+针对此类问题，就可以使用useMemo来缓存计算函数执行后返回的值。官网给出的示例代码如下：
+#+begin_src js
+function computeExpensiveValue() {
+  // 计算量很大的代码
+  return xxx
+}
+
+const memoizedValue = useMemo(computeExpensiveValue, [a, b]);
+#+end_src
+useMemo 的第一个参数就是一个函数，这个函数返回的值会被缓存起来，同时这个值会作为 useMemo 的返回值，第二个参数是一个数组依赖，如果数组里面的值有变化，那么就会重新去执行第一个参数里面的函数，并将函数返回的值缓存起来并作为 useMemo 的返回值 。
+#+begin_src js
+import React,{useState,useMemo} from "react";
+
+export default function App() {
+  const [num, setNum] = useState(0);
+
+  // 一个非常耗时的一个计算函数
+  // result 最后返回的值是 49995000
+  const expensiveFn = useMemo(() => {
+    let result = 0;
+
+    for (let i = 0; i < 10000; i++) {
+      result += i;
+    }
+
+    console.log(result) // 49995000
+    return result;
+  },[])
+  return (
+    <div className="App">
+      <h1>count：{num}</h1>
+      <button onClick={() => setNum(num + expensiveFn)}>+1</button>
+    </div>
+  );
+}
+#+end_src
+执行上面的代码，然后现在可以观察无论我们点击 +1多少次，只会输出一次 49995000，这就代表 expensiveFn 只执行了一次，达到了我们想要的效果。
+** 小结
+useMemo 的使用场景主要是用来缓存计算量比较大的函数结果，可以避免不必要的重复计算。不过有以下两点提醒：
+1. 如果没有提供依赖项数组，useMemo 在每次渲染时都会计算新的值
+2. 计算量如果很小的计算函数，也可以选择不使用 useMemo，因为这点优化并不会作为性能瓶颈的要点，反而可能使用错误还会引起一些性能问题。
