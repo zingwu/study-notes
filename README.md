@@ -1,5 +1,6 @@
 ## Table of contents
   + [algorithm](#algorithm)
+  + [data-structure](#data-structure)
   + [front-end-tools](#front-end-tools)
   + [javascript](#javascript)
   + [react](#react)
@@ -7,6 +8,8 @@
 ## algorithm
   + [复杂度分析](notes/algorithm/algorithm-complexity.org)
   + [leetcode 每日1题](notes/algorithm/leetcode-daily.org)
+## data-structure
+  + [栈](notes/data-structure/stack.org)
 ## front-end-tools
   + **components-library**
     + [antd](notes/front-end-tools/components-library/antd.org)
