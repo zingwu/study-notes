@@ -4,6 +4,7 @@
   + [front-end-tools](#front-end-tools)
   + [javascript](#javascript)
   + [react](#react)
+  + [typescript](#typescript)
   + [utils](#utils)
 ## algorithm
   + [复杂度分析](notes/algorithm/algorithm-complexity.org)
@@ -16,9 +17,12 @@
   + **function-library**
     + [moment-js 常用方法](notes/front-end-tools/function-library/moment-js.org)
 ## javascript
+  + [JS数组](notes/javascript/array.org)
   + [js 代码提升](notes/javascript/js-code-clean.org)
 ## react
   + [React 函数式组件性能优化](notes/react/react-function-performance-optimization.org)
+## typescript
+  + [typescript学习](notes/typescript/typescript-study.org)
 ## utils
   + **emacs**
     + [org-agenda 配置](notes/utils/emacs/org-agenda.org)
