@@ -7,8 +7,10 @@
   + [typescript](#typescript)
   + [utils](#utils)
 ## algorithm
+  + **leetcode-daily**
+    + [2020-12](notes/algorithm/leetcode-daily/2020-12.org)
+    + [2021-01](notes/algorithm/leetcode-daily/2021-01.org)
   + [复杂度分析](notes/algorithm/algorithm-complexity.org)
-  + [leetcode 每日1题](notes/algorithm/leetcode-daily.org)
 ## data-structure
   + [栈](notes/data-structure/stack.org)
 ## front-end-tools
