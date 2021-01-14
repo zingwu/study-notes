@@ -1,0 +1,102 @@
+#+TITLE:      js深浅拷贝
+
+* 目录                                                    :TOC_4_gh:noexport:
+- [[#浅拷贝的原理及实现][浅拷贝的原理及实现]]
+  - [[#定义][定义]]
+  - [[#js实现浅拷贝的方法][js实现浅拷贝的方法]]
+    - [[#对象][对象]]
+      - [[#方法一objectassign][方法一：Object.assign()]]
+      - [[#方法二扩展运算符][方法二：扩展运算符]]
+    - [[#数组][数组]]
+      - [[#方法一concat][方法一：concat()]]
+      - [[#方法二slice][方法二：slice()]]
+    - [[#实现一个浅拷贝方法][实现一个浅拷贝方法]]
+- [[#深拷贝的原理及实现][深拷贝的原理及实现]]
+  - [[#定义-1][定义]]
+  - [[#js实现深拷贝的方法][js实现深拷贝的方法]]
+    - [[#方法一jsonparsejsonstringfy][方法一：Json.parse(Json.stringfy())]]
+    - [[#方法二手写递归实现][方法二：手写递归实现]]
+
+* 浅拷贝的原理及实现
+** 定义
+自己创建一个新的对象，来接受你要重新复制或引用的对象值。如果对象属性是基本的数据类型，复制的就是基本类型的值给新对象；但如果属性是引用数据类型，复制的就是内存中的地址，如果其中一个对象改变了这个内存中的地址，肯定会影响到另一个对象。
+** js实现浅拷贝的方法
+*** 对象
+**** 方法一：Object.assign()
+object.assign 是 ES6 中 object 的一个方法，该方法可以用于 JS 对象的合并等多个用途，其中一个用途就是可以进行浅拷贝。该方法的第一个参数是拷贝的目标对象，后面的参数是拷贝的来源对象（也可以是多个来源）。
+
+#+begin_quote
+语法：Object.assign(target, ...sources)
+#+end_quote
+
+使用这个方法有几点需要注意：
++ 它不会拷贝对象的继承属性
++ 它不会拷贝对象的可枚举属性
++ 可以拷贝Symbol类型的属性
+**** 方法二：扩展运算符
+#+begin_src js
+  const obj1 = {a:1}
+  const obj2 = {...obj1}
+#+end_src
+*** 数组
+**** 方法一：concat()
+#+begin_src js
+  const arr1 = [1,2,3]
+  const arr2 = [].concat(arr1)
+  //const arr3 = arr1.concat()
+#+end_src
+**** 方法二：slice()
+#+begin_src js
+  const arr1 = [1,2,3]
+  const arr2 = arr1.slice()
+#+end_src
+*** 实现一个浅拷贝方法
+#+begin_src js
+  const shallowCopy = (target) => {
+      if (typeof target === "object" && target !== null) {
+          const cloneTarget = Array.isArray(target) ? [] : {};
+          for (const prop in target) {
+              if (target.hasOwnProperty(prop)) {
+                  cloneTarget[prop] = target[prop];
+              }
+          }
+          return cloneTarget;
+      }
+      return target;
+  };
+#+end_src
+* 深拷贝的原理及实现
+** 定义
+将一个对象从内存中完整地拷贝出来一份给目标对象，并从堆内存中开辟一个全新的空间存放新对象，且新对象的修改并不会改变原对象，二者实现真正的分离。
+** js实现深拷贝的方法
+*** 方法一：Json.parse(Json.stringfy())
+这个方法是目前开发中最简单的深拷贝方法，其实就是把一个对象序列化成为JSON字符串，然后再把JSON字符串生成一个新对象。
+
+但是使用这个方法有几点需要注意：
++ 拷贝的对象的值中如果有函数，undefined，symbol这几种类型，经过序列化转化后新对象会丢失这些键值对
++ 拷贝Date引用类型会变成字符串
++ 无法拷贝不可枚举的属性
++ 无法拷贝对象的原型链
++ 拷贝RegExp引用类型会变成空对象
++ 对象中含有NaN、Infinity，会变成null
++ 无法拷贝对象的循环引用
+*** 方法二：手写递归实现
+#+begin_src js
+  const deepCopy = (target) => {
+      if (typeof target !== "object" || !target) {
+          return target;
+      }
+      let copyTarget = Array.isArray(target) ? [] : {};
+
+      for (let prop in target) {
+          if (target.hasOwnProperty(prop)) {
+              copyTarget[prop] =
+                  typeof target[prop] === "object"
+                  ? deepCopy(target[prop])
+                  : target[prop];
+          }
+      }
+      return copyTarget;
+  };
+#+end_src
+这种方法还没考虑到很多特殊情况，例如对象循环引用等问题，日后跟着lodash写一遍完美的深拷贝

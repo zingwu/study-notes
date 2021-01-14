@@ -21,6 +21,7 @@
 ## javascript
   + [JS数组](notes/javascript/array.org)
   + [js 代码提升](notes/javascript/js-code-clean.org)
+  + [js深浅拷贝](notes/javascript/js-shallow-and-deep-copy.org)
   + [js数据类型](notes/javascript/type-of-data.org)
 ## react
   + [React 函数式组件性能优化](notes/react/react-function-performance-optimization.org)
