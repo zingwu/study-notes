@@ -1,5 +1,6 @@
 ## Table of contents
   + [algorithm](#algorithm)
+  + [computer-operating-system](#computer-operating-system)
   + [data-structure](#data-structure)
   + [front-end-tools](#front-end-tools)
   + [javascript](#javascript)
@@ -11,6 +12,8 @@
     + [2020-12](notes/algorithm/leetcode-daily/2020-12.org)
     + [2021-01](notes/algorithm/leetcode-daily/2021-01.org)
   + [复杂度分析](notes/algorithm/algorithm-complexity.org)
+## computer-operating-system
+  + [计算机操作系统概述](notes/computer-operating-system/computer-operating-system-overview.org)
 ## data-structure
   + [栈](notes/data-structure/stack.org)
 ## front-end-tools
@@ -21,6 +24,7 @@
 ## javascript
   + [JS数组](notes/javascript/array.org)
   + [js 代码提升](notes/javascript/js-code-clean.org)
+  + [js继承的6种方式](notes/javascript/js-extends.org)
   + [js深浅拷贝](notes/javascript/js-shallow-and-deep-copy.org)
   + [js数据类型](notes/javascript/type-of-data.org)
 ## react
