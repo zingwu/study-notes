@@ -322,6 +322,6 @@ ES6，可以使用...的方式获取函数中的剩余参数：
       return false;
   }
 #+end_src
- // TODO: not finished
+// TODO: not finished
 ** 声明文件
 ** 内置对象

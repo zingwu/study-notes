@@ -24,12 +24,13 @@
 ## javascript
   + [JS数组](notes/javascript/array.org)
   + [js 代码提升](notes/javascript/js-code-clean.org)
-  + [js继承的6种方式](notes/javascript/js-extends.org)
+  + [js-extends](notes/javascript/js-extends.org)
   + [js深浅拷贝](notes/javascript/js-shallow-and-deep-copy.org)
   + [js数据类型](notes/javascript/type-of-data.org)
 ## react
   + [React 函数式组件性能优化](notes/react/react-function-performance-optimization.org)
 ## typescript
+  + [tsconfig.json配置](notes/typescript/tsconfig-conf.org)
   + [typescript学习](notes/typescript/typescript-study.org)
 ## utils
   + **emacs**
@@ -38,5 +39,7 @@
     + [emacs常用快捷键指南](notes/utils/emacs/shortcut-guide.org)
   + **git**
     + [git常用命令](notes/utils/git/git-command-guide.org)
+  + **package-maneger**
+    + [cgr-npm,yarn 源管理器](notes/utils/package-maneger/cgr.org)
   + **tmux**
     + [tmux操作指南](notes/utils/tmux/tmux-guide.org)
