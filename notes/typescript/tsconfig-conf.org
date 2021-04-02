@@ -14,7 +14,7 @@
 在TS的项目中，TS最终都会被编译JS文件执行，TS编译器在编译TS文件的时候都会先在项目根目录的tsconfig.json文件，根据该文件的配置进行编译，默认情况下，如果该文件没有任何配置，TS编译器会默认编译项目目录下所有的.ts、.tsx、.d.ts文件。实际项目中，会根据自己的需求进行自定义的配置，下面就来详细了解下tsconfig.json的文件配置
 * 编译选项配置
 ** compilerOptions:配置编译选项
-#+begin_src json
+#+begin_src js
   {
       "compilerOptions": {
 
@@ -71,14 +71,14 @@
 #+end_src
 * 文件选项配置
 ** files: 表示编译需要编译的单个文件列表
-#+begin_src json
+#+begin_src js
 "files": [
   // 指定编译文件是src目录下的a.ts文件
   "scr/a.ts"
 ]
 #+end_src
 ** include: 表示编译需要编译的文件或目录
-#+begin_src json
+#+begin_src js
 "include": [
   // "scr" // 会编译src目录下的所有文件，包括子目录
   // "scr/*" // 只会编译scr一级目录下的文件
@@ -87,14 +87,14 @@
 #+end_src
 ** exclude: 表示编译器需要排除的文件或文件夹
 默认排除node_modules 文件夹下的文件
-#+begin_src json
+#+begin_src js
 "exclude": [
   // 排除src目录下的lib文件夹下的文件不会编译
   "src/lib"
 ]
 #+end_src
 ** extends: 引入其他配置文件，继承配置
-#+begin_src json
+#+begin_src js
 // 把基础配置抽离成tsconfig.base.json文件，然后引入
 "extends": "./tsconfig.base.json"
 #+end_src
