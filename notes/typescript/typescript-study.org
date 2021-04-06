@@ -3,9 +3,11 @@
 * 目录                                                    :TOC_4_gh:noexport:
 - [[#基础][基础]]
   - [[#原始数据类型][原始数据类型]]
-    - [[#布尔值][布尔值]]
-    - [[#数值][数值]]
-    - [[#字符串][字符串]]
+    - [[#boolean类型][Boolean类型]]
+    - [[#number-类型][Number 类型]]
+    - [[#string-类型][String 类型]]
+    - [[#symbol-类型][Symbol 类型]]
+    - [[#array-类型][Array 类型]]
     - [[#空值][空值]]
     - [[#null和undefined][null和undefined]]
   - [[#任意值][任意值]]
@@ -40,13 +42,13 @@
 
 * 基础
 ** 原始数据类型
-*** 布尔值
+*** Boolean类型
 使用boolean定义布尔值类型：
 #+begin_src js
   let isDone: boolean = false
 #+end_src
 这里需要注意的是使用构造函数Boolean创造的对象不是布尔值，new Boolean 创造的是一个Boolean对象。
-*** 数值
+*** Number 类型
 使用number定义数值类型：
 #+begin_src js
   let decLiteral: number = 6;
@@ -58,11 +60,23 @@
   let notANumber: number = NaN;
   let infinityNumber: number = Infinity;
 #+end_src
-*** 字符串
+*** String 类型
 使用string定义字符串类型：
 #+begin_src js
   let myName: string = "howell";
   let sentence: string = `hello,my name is ${myName}`;
+#+end_src
+*** Symbol 类型
+#+begin_src js
+  const sym = Symbol();
+  let obj = {
+      [sym]: 'semlinker',
+  };
+#+end_src
+*** Array 类型
+#+begin_src js
+  let list: number[] = [1,2,3];
+  let list: Array<number> = [1,2,3]; // 数组泛型语法
 #+end_src
 *** 空值
 JavaScript 没有空值（Void）的概念，在 TypeScript 中，可以用 void 表示没有任何返回值的函数：
