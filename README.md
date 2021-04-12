@@ -20,6 +20,7 @@
   + **components-library**
     + [antd](notes/front-end-tools/components-library/antd.org)
   + **function-library**
+    + [Lodash学习及实现](notes/front-end-tools/function-library/lodash.org)
     + [moment-js 常用方法](notes/front-end-tools/function-library/moment-js.org)
 ## javascript
   + [JS数组](notes/javascript/array.org)

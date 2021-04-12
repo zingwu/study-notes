@@ -17,6 +17,7 @@
 + 切换分支 git checkout [branch-name]
 + 删除分支 git branch -D [branch-name]
 + 本地分支重命名 git branch -m [old-name] [new-name]
++ 删除远程分支 git push origin --delete [branch-name]
 
 * 撤销操作
 + 撤销最新一次提交 git reset --soft HEADER

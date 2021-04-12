@@ -8,6 +8,8 @@
     - [[#string-类型][String 类型]]
     - [[#symbol-类型][Symbol 类型]]
     - [[#array-类型][Array 类型]]
+    - [[#enum-类型][enum 类型]]
+      - [[#数字枚举][数字枚举]]
     - [[#空值][空值]]
     - [[#null和undefined][null和undefined]]
   - [[#任意值][任意值]]
@@ -78,6 +80,9 @@
   let list: number[] = [1,2,3];
   let list: Array<number> = [1,2,3]; // 数组泛型语法
 #+end_src
+*** enum 类型
+**** 数字枚举
+
 *** 空值
 JavaScript 没有空值（Void）的概念，在 TypeScript 中，可以用 void 表示没有任何返回值的函数：
 #+begin_src js
@@ -180,7 +185,7 @@ JavaScript 没有空值（Void）的概念，在 TypeScript 中，可以用 void
      interface Person{
          name: string ;
          age?: number;
-         [propName: string]: an y
+         [propName: string]: any
      }
    #+end_src
 5. 如果希望对象中的一些字段只能在创建的时候赋值，那么可以在接口中用只读属性：
