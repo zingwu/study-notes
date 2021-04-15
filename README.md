@@ -15,6 +15,7 @@
 ## computer-operating-system
   + [计算机操作系统概述](notes/computer-operating-system/computer-operating-system-overview.org)
 ## data-structure
+  + [学习数据结构的思路](notes/data-structure/ideas.org)
   + [栈](notes/data-structure/stack.org)
 ## front-end-tools
   + **components-library**
@@ -44,3 +45,5 @@
     + [cgr-npm,yarn 源管理器](notes/utils/package-maneger/cgr.org)
   + **tmux**
     + [tmux操作指南](notes/utils/tmux/tmux-guide.org)
+  + **vscode**
+    + [vscode 使用指南](notes/utils/vscode/vscode-guide.org)
