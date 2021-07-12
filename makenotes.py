@@ -10,7 +10,7 @@ from typing import Union, TextIO
 
 TITLE_MATCHER = re.compile(r'#\+TITLE:\s*(.+)')
 EXCLUDE_DIR_NAMES = 'image', 'assets', 'static'
-NOTE_SUFFIX = '.org'
+NOTE_SUFFIX = '.md'
 
 
 Node = namedtuple('Node', ['path', 'name', 'subdirs', 'subnotes'])
